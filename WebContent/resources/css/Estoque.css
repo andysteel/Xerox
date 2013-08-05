@@ -1,0 +1,146 @@
+/** Add css rules here for your application. */
+
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #777777;
+  margin: 40px 0px 70px;
+  text-align: center;
+}
+
+th {
+	font-size: 80px;
+	text-align: center;
+	color: white;
+}
+
+#nome {
+	font-size: 25px;
+	text-align: center;
+	
+}
+
+#texto {
+	color: white;
+}
+
+#xerox {
+	position: absolute;
+	top: 415px;
+	left: 60%;
+}
+
+#printers {
+	width: 50%;
+	border: 5px;
+	
+}
+
+#teste {
+	font-style: italic;
+	font-size: 50px;
+}
+
+h2 {
+	text-align: center;
+}
+#login {
+	position: relative;
+	left: 5%
+}
+
+#logout {
+	position: absolute;
+	left: 90%;
+	top: 360px;
+	font-size: 14px;
+}
+
+#voltar {
+	position: ;
+	left: 85%;
+	top: 350px;
+	font-size: 10px;
+}
+
+#menu {
+	
+	position: absolute;
+	left: 500px;
+	top: 350px;
+}
+
+#panel {
+	position: relative;
+	left: 25%;
+}
+
+#dataTable1 {
+	position: relative;
+	left: 25%;
+	width: 50%;
+}
+
+.dt1 {
+	background-color: black;
+	color: white;
+}
+
+.dt2 {
+	background-color: blue;
+	color: white;
+}
+.dt3 {
+	background-color: yellow;
+	color: black;
+}
+
+.dt4 {
+	background-color: #FF00FF;
+	color: white;
+}
+
+.icone {
+	width: 30px;
+	
+}
+
+.logado{
+	
+	font-family: sans-serif;
+	color: gray;
+	font-stretch: expanded;
+	font-style: inherit;
+	font-weight: bold;
+}
+
+.maquinas {
+		width: 100%;
+	
+}
+
+.user {
+	position: relative;
+	left: 80%;
+}
+
+.export {
+	width: 43px;
+	
+}
+
+.pexport {
+	width: 68px;
+	font-size: 10px;
+	height: 70px;
+	
+}
+
+.pexport2 {
+	width: 128px;
+	font-size: 10px;
+	height: 70px;
+	
+}

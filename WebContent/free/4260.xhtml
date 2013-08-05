@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+       
+        <ui:define name="conteudo">
+        <h:outputStylesheet name="Estoque.css" library="css"/>
+        
+       			<h:panelGrid columns="2" styleClass="user">
+					<p:graphicImage url="/resources/users_2.ico" styleClass="icone" dir="rtl"/> <p class="logado">Usuario: #{usuarioBean.logado()}</p>
+					
+				</h:panelGrid>  
+                <p:menubar>
+                     <p:menuitem value="Adicionar toner" icon="ui-icon-plus"  url="/free/adiciona4260.xhtml" />
+                     <p:menuitem value="Adicionar foto" icon="ui-icon-plus"  url="/free/fotoadiciona4260.xhtml" style="position: relative;left: 15px" />
+                     <p:menuitem value="Voltar" icon="ui-icon-arrowreturn-1-w" url="/free/inicio.xhtml" style="position: relative;left: 30px"/>
+                     <p:menuitem value="Toner em uso" icon="ui-icon-document" url="/free/4260emuso.xhtml" style="position: relative;left: 45px"/>
+                     <p:menuitem value="Toner usado" icon="ui-icon-trash" url="/free/4260usado.xhtml" style="position: relative;left: 60px"/>
+                     <p:menuitem value="Foto novo" icon="ui-icon-document" url="/free/foto4260novo.xhtml" style="position: relative;left: 75px"/>
+                     <p:menuitem value="Foto em uso" icon="ui-icon-document" url="/free/foto4260uso.xhtml" style="position: relative;left: 90px"/>
+                     <p:menuitem value="Foto usado" icon="ui-icon-trash" url="/free/foto4260usado.xhtml" style="position: relative;left: 105px"/>
+                     <p:menuitem value="Logout" icon="ui-icon-extlink" url="Xerox/j_spring_security_logout" style="position: relative; left: 170px"/>
+			    </p:menubar>
+       
+            <h:form id="form">
+               
+                <h:panelGrid columns="2">
+                	<p:graphicImage url="/resources/titulo_4260.png"/>
+                
+                	<p:panel id="pexport" header="Exportar" style="font-size:12px;text-align:center;" styleClass="pexport">
+                	<h:commandLink>
+                		<p:graphicImage id="export" styleClass="export" value="/resources/excel.png"/>
+                		<p:dataExporter target="dataTable1" type="xls" fileName="toner Novo 4260" postProcessor="#{dataTableBean.postProcess}"/>
+                	</h:commandLink>
+                	</p:panel>
+                </h:panelGrid>
+                <p:messages id="alerta" severity="warn" rendered="#{wc4260Bean.testaToner()}" showDetail="true" closable="true" for="alerta">
+                	#{wc4260Bean.alerta()}
+                </p:messages>
+                
+                <p:messages id="alertaz" severity="fatal" rendered="#{wc4260Bean.testaZero()}" showDetail="true" closable="true" for="alertaz">
+                	#{wc4260Bean.alertaZero()}
+                </p:messages>
+                
+                <p:growl id="msg"/>
+                <br/><br/>
+               
+                <p:dataTable id="dataTable1" var="print" value="#{wc4260Bean.getLista()}" styleClass="order-table" style="position: relative; left:22%;
+                                                width: 60%">
+                                               
+                        <f:facet name="header">
+                                Lista de Toner Novo
+                        </f:facet>
+                        
+                        <!--<p:column headerText="ID" style="font-size:15px;">
+                        	<h:outputText value="#{print.tId}"/>
+                        </p:column>-->
+                       
+                        <p:column style="font-size:15px;">
+                        		<f:facet name="header">
+                        			<p:outputLabel value="MODELO"/>
+                        		</f:facet>
+                                <h:outputText value="#{print.modelo}" />
+                        </p:column>
+                       
+                        <p:column style="font-size:15px;">
+                        		<f:facet name="header">
+                        			<p:outputLabel value="PATRIMONIO"/>
+                        		</f:facet>
+                                <h:outputText value="#{print.patrimonio}" style="text-transform: uppercase"/>
+                        </p:column>
+                       
+                        <p:column style="font-size:15px;"> 
+                        		<f:facet name="header">
+                        			<p:outputLabel value="SERIE"/>
+                        		</f:facet>                    		
+                                <h:outputText value="#{print.serie}" style="text-transform: uppercase"/>
+                        </p:column>
+                       
+                        <p:column style="font-size:15px;">
+                        		<f:facet name="header">
+                        			<p:outputLabel value="SITUAÇÃO"/>
+                        		</f:facet>
+                                <h:outputText value="#{print.situacao}" style="text-transform: uppercase"/>
+                        </p:column>
+                       
+                        <p:column headerText="AÇÕES" style="font-size:15px;" exportable="false">
+                               
+                                <p:commandButton icon="ui-icon-pencil" update=":form:edit" oncomplete="editWidget.show()" title="editar">
+                                	<f:setPropertyActionListener target="#{wc4260Bean.toner}" value="#{print}"/>
+                                </p:commandButton>
+                                
+                                <p:commandButton icon="ui-icon-trash" update=":form:removeDialog" oncomplete="removeWidget.show()" title="excluir">
+                                	<f:setPropertyActionListener target="#{wc4260Bean.toner}" value="#{print}"/>
+                                </p:commandButton>
+                        </p:column>
+                       
+                        <f:facet name="footer">
+                                Total de toner: #{fn:length(wc4260Bean.lista)} 
+                        </f:facet>
+                </p:dataTable>
+                
+                <p:dialog header="Editar Toner" widgetVar="editWidget" resizable="false" modal="true" showEffect="explode" hideEffect="drop">
+                	<p:ajax event="close" listener="#{wc4260Bean.limpar}"/>
+                	<h:panelGrid id="edit" columns="2" cellpadding="4" style="margin:0 auto;">
+                		
+                				<p:outputLabel value="PATRIMONIO:" for="patrimonio"/>
+                                <p:inputText id="patrimonio" style="text-transform: uppercase" value="#{wc4260Bean.toner.patrimonio}"/>
+                       
+                                <p:outputLabel value="SERIE: " for="serie"/>
+                                <p:inputText id="serie" style="text-transform: uppercase" value="#{wc4260Bean.toner.serie}" maxlength="8"/>
+                                
+                                <p:outputLabel value="Situação: " for="situacao"/>
+                                <p:selectOneMenu id="situacao" value="#{wc4260Bean.toner.situacao}">
+                                	<f:selectItem itemLabel="NOVO" itemValue="NOVO"/>
+                                	<f:selectItem itemLabel="EM USO" itemValue="EM USO"/>
+                                	<f:selectItem itemLabel="USADO" itemValue="USADO"/>
+                                </p:selectOneMenu>
+                                
+                                <p:commandButton value="Editar" icon="ui-icon-check" action="#{wc4260Bean.editar}" oncomplete="editWidget.hide()" update="dataTable1, msg, alerta, alertaz"/>
+                                <p:commandButton value="cancelar" icon="ui-icon-cancel" action="#{wc4260Bean.limpar}" oncomplete="editWidget.hide()"/>
+                	</h:panelGrid>
+                </p:dialog>
+                
+                <p:confirmDialog id="removeDialog" widgetVar="removeWidget" header="Remover toner" showEffect="explode" hideEffect="drop"
+                					message="Deseja realmente excluir o toner #{wc4260Bean.toner.patrimonio}?" severity="alert" >
+                					
+                	<p:commandButton value="sim" icon="ui-icon-check" actionListener="#{wc4260Bean.remover}" oncomplete="removeWidget.hide()" update="dataTable1, msg, alerta, alertaz"/>				
+                					
+                	<p:commandButton value="cancelar" icon="ui-icon-cancel" action="#{wc4260Bean.limpar}" oncomplete="removeWidget.hide()" />
+    
+                </p:confirmDialog>
+               
+                <!--<p:blockUI block="dataTable1" trigger="dataTable1">
+                        CARREGANDO<br/>
+                        <p:graphicImage value="/resources/ajax-loader.gif"/>
+                </p:blockUI>-->
+            </h:form>
+          
+            <br/>
+            <br/>
+        </ui:define>
+       
+</ui:composition>
+</html>
+

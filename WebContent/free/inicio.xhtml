@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>estoque</title>
+</h:head>
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="conteudo">
+	<h:outputStylesheet name="Estoque.css" library="css"/>
+	<h:panelGrid columns="2" styleClass="user">
+		<p:graphicImage url="/resources/users_2.ico" styleClass="icone" dir="rtl"/> <p class="logado">Usuario: #{usuarioBean.logado()}</p>
+	</h:panelGrid>  
+	<p:menubar>
+		<p:menuitem value="Logout" icon="ui-icon-extlink" url="Xerox/j_spring_security_logout" style="position: relative; left: 1130px"/>
+	</p:menubar>
+	<h:form>
+	<h:panelGrid columns="2">
+	<p:panel id="pexport2" header="Exportar Toner" style="font-size:12px;text-align:left;" styleClass="pexport2">
+    	<h:commandLink>
+    		<p:graphicImage id="export" styleClass="export" style="position:relative;left: 30%" value="/resources/excel.png"/>
+    		<p:dataExporter target="dataTable1" type="xls" fileName="Toner" postProcessor="#{dataTableBean.postProcess}"/>
+    	</h:commandLink>
+    </p:panel>
+    
+    <p:panel id="pexp" header="Exportar Foto" style="font-size:12px;text-align:left;" styleClass="pexport2">
+    	<h:commandLink>
+    		<p:graphicImage id="exp" styleClass="export" style="position:relative;left: 30%" value="/resources/excel.png"/>
+    		<p:dataExporter target="dataTable2" type="xls" fileName="Foto" postProcessor="#{dataTableBean.postProcess}"/>
+    	</h:commandLink>
+    </p:panel>
+    </h:panelGrid>
+    <!-- tabela para pegar todos os toners -->
+                <p:dataTable id="dataTable1" var="print" value="#{wc4260Bean.listaTodosToner()}" rendered="false">
+                
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="MODELO"/>
+                		</f:facet>
+                		<h:outputText value="#{print.modelo}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="PATRIMONIO"/>
+                		</f:facet>
+                		<h:outputText value="#{print.patrimonio}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="SERIE"/>
+                		</f:facet>
+                		<h:outputText value="#{print.serie}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="COR"/>
+                		</f:facet>
+                		<h:outputText value="#{print.cor}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="SITUAÇÃO"/>
+                		</f:facet>
+                		<h:outputText value="#{print.situacao}"/>
+                	</p:column>
+                
+                </p:dataTable>
+                
+                <!-- tabela para pegar todos os fotos -->
+                <p:dataTable id="dataTable2" var="print" value="#{foto4260Bean.listaTodosFoto()}" rendered="false">
+                
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="MODELO"/>
+                		</f:facet>
+                		<h:outputText value="#{print.modelo}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="PATRIMONIO"/>
+                		</f:facet>
+                		<h:outputText value="#{print.patrimonio}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="SERIE"/>
+                		</f:facet>
+                		<h:outputText value="#{print.serie}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="COR"/>
+                		</f:facet>
+                		<h:outputText value="#{print.cor}"/>
+                	</p:column>
+                	
+                	<p:column>
+                		<f:facet name="header">
+                			<p:outputLabel value="SITUAÇÃO"/>
+                		</f:facet>
+                		<h:outputText value="#{print.situacao}"/>
+                	</p:column>
+                
+                </p:dataTable>
+    
+	 </h:form>
+	<br/>
+	<br/>
+
+	<h:panelGrid columns="6" styleClass="maquinas">
+		<h:outputLink value="4260.xhtml"><img src="resources/4260.jpg" width="280" height="300" title="Xerox 4260"/></h:outputLink>
+		<h:outputLink value="8900.xhtml"><img src="resources/colorqube_2.jpg" width="280" height="300" title="Xerox 8900"/></h:outputLink>
+		<h:outputLink value="7556.xhtml"><img  src="resources/WC7556.png" width="200" height="300" title="Xerox 7556"/></h:outputLink>
+		<h:outputLink value="5755.xhtml"><img src="resources/X5755.jpg" width="200" height="300" title="Xerox 5755"/></h:outputLink>
+		<h:outputLink value="6015.xhtml"><img src="resources/X60152.jpg" width="280" height="300" title="Xerox 6015"/></h:outputLink>
+		<h:outputLink value="6700.xhtml"><img src="resources/X6700.jpg" width="280" height="300" title="Xerox 6700"/></h:outputLink>
+		
+		<h:column><h2>Workcentre 4260</h2></h:column>
+		<h:column><h2>Colorqube 8900</h2></h:column>
+		<h:column><h2>Workcentre 7556</h2></h:column>
+		<h:column><h2>Workcentre 5755</h2></h:column>
+		<h:column><h2>Workcentre 6015</h2></h:column>
+		<h:column><h2>Phaser 6700</h2></h:column>
+		
+	</h:panelGrid>
+	
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	</ui:define>
+</ui:composition>
+</html>

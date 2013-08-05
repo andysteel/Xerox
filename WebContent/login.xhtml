@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="conteudo">
+	<h:outputStylesheet name="Estoque.css" library="css"/>
+	
+	<br/>
+	<br/>
+	<br/>
+		
+		
+				
+			
+		
+		<form action="j_spring_security_check" method="post" id="login">
+			<h:panelGrid  columns="1" bgcolor="steelblue" cellspacing="10" id="pan">
+				<h:outputLabel value="LOGIN" for="j_username" style="color: white;"/>
+				<h:inputText id="j_username" size="35" required="true"/>
+				
+				<h:outputLabel value="SENHA" for="j_password" style="color: white;"/>
+				<h:inputSecret id="j_password" size="35" required="true"/>
+				
+				<h:commandButton id="bt_entrar" value="entrar"/> 
+			</h:panelGrid>
+			<h:outputText value="Usuario ou senha incorretos!!" rendered="#{param.erro}" style="color: red"/>
+		</form> 
+		
+		<h:graphicImage url="resources/xerox.jpeg" id="xerox"/>
+		
+		<br/>
+		<br/>
+		<p:blockUI block="pan" trigger="bt_entrar">
+			CARREGANDO<br/>
+			<p:graphicImage value="/resources/ajax-loader.gif"/>
+		</p:blockUI>
+	</ui:define>
+	
+</ui:composition>
+
+</html>

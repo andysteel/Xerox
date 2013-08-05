@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="conteudo">
+	 <h:outputStylesheet name="Estoque.css" library="css"/>
+        
+        <h:body onload="limpa()">
+        <h:outputScript name="evento.js" library="js"/>
+        <h:panelGrid columns="2" styleClass="user">
+			<p:graphicImage url="/resources/users_2.ico" styleClass="icone" dir="rtl"/> <p class="logado">Usuario: #{usuarioBean.logado()}</p>
+		</h:panelGrid>  
+        		<p:menubar>
+                	<p:menuitem value="Home" icon="ui-icon-home"  url="/free/inicio.xhtml" />
+                	<p:menuitem value="Adicionar toner" icon="ui-icon-plus"  url="/free/adiciona5755.xhtml" style="position: relative;left: 15px"/>
+                    <p:menuitem value="Toner novo" icon="ui-icon-document" url="/free/5755.xhtml" style="position: relative;left: 30px"/>
+                    <p:menuitem value="Toner em uso" icon="ui-icon-document" url="/free/5755emuso.xhtml" style="position: relative;left: 45px"/>
+                    <p:menuitem value="Toner usado" icon="ui-icon-trash" url="/free/5755usado.xhtml" style="position: relative;left: 60px"/>
+                    <p:menuitem value="Foto novo" icon="ui-icon-document" url="/free/foto5755novo.xhtml" style="position: relative;left: 75px"/>
+                    <p:menuitem value="Foto em uso" icon="ui-icon-document" url="/free/foto5755uso.xhtml" style="position: relative;left: 90px"/>
+                    <p:menuitem value="Foto usado" icon="ui-icon-trash" url="/free/foto5755usado.xhtml" style="position: relative;left: 105px"/>
+                    <p:menuitem value="Logout" icon="ui-icon-extlink" url="Xerox/j_spring_security_logout" style="position: relative; left: 180px"/>
+                </p:menubar>
+                
+                <p:graphicImage url="/resources/5755.jpg"/>
+                
+            <br/>
+            <br/>
+            <br/>
+            <h:form id="form" >
+                <p:growl id="msg" sticky="true"/>
+            <p:panel header="NOVO FOTORRECEPTOR" id="panel" style="width: 50%; position: relative; left: 22%">
+                       
+                        <p:messages id="messages"/>
+                        <h:panelGrid columns="4" id="panelg">
+                       
+                                <p:outputLabel value="PATRIMONIO:" for="patrimonio"/>
+                                <p:inputText id="patrimonio" style="text-transform: uppercase" value="#{foto5755Bean.foto.patrimonio}" required="true" requiredMessage="Campo obrigatório"/>
+                       
+                                <p:outputLabel value="SERIE: " for="serie"/>
+                                <p:inputText id="serie" style="text-transform: uppercase" value="#{foto5755Bean.foto.serie}" maxlength="8" required="true" requiredMessage="Campo obrigatório"/>
+                                
+                                <p:outputLabel value="SITUAÇÃO: " for="situacao"/>
+                                <p:inputText id="situacao" style="text-transform: uppercase" value="#{foto5755Bean.foto.situacao}" disabled="true"/>
+                                	
+                                <p:outputLabel value="MODELO: " for="modelo"/>
+                                <p:inputText id="modelo" style="text-transform: uppercase" value="#{foto5755Bean.foto.modelo}" disabled="true"/>
+                       
+                                <p:commandButton value="adicionar" actionListener="#{foto5755Bean.adicionaFoto5755}"  action="#{foto5755Bean.limpar}"  update="panelg, msg" style="font-size: 14px">
+                                        <f:setPropertyActionListener target="#{foto5755Bean.foto.situacao}" value="NOVO"/>
+                                </p:commandButton>
+                               
+                        </h:panelGrid>
+                       
+                </p:panel>
+                
+            </h:form>
+            <br/>
+            <br/>
+            <br/>
+        </h:body>
+	</ui:define>
+	
+</ui:composition>
+</html>
